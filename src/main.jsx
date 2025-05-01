@@ -5,6 +5,8 @@ import Root from './componenets/Root/Root';
 import Home from './componenets/Home/Home';
 import ErrorPage from './componenets/ErrorPage/ErrorPage';
 import DashBoard from './componenets/DashBoard/DashBoard';
+import {loaderData} from './componenets/utils/LoaderData.js';
+import BookDetails from './componenets/BookDetails/BookDetails.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -12,20 +14,26 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: "/", Component: Root, errorElement: ErrorPage,
-    children:([
+    path: "/", element: <Root />, errorElement: <ErrorPage />,
+    children:[
       {
-        path: "/", Component: Home
+        path: "/", element: <Home />, 
+        loader: loaderData('/booksData.json') 
       },
       {
-        path: 'dashboard', Component: DashBoard
+        path: 'dashboard', element: <DashBoard />
+      },
+      {
+        path: 'books/:bookId',
+        element: <BookDetails/>,
+        loader: loaderData('/booksData.json') 
       }
-    ])
+    ]
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
   </StrictMode>,
 )
