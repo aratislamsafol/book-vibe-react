@@ -1,4 +1,7 @@
 import {useParams,useLoaderData} from 'react-router-dom';
+import {addToStoreReadList} from '../utils/addToDb';
+import {addToWishList} from '../utils/wishList';
+
 export default function BookDetails() {
     const {bookId} = useParams();
     const id = parseInt(bookId);
@@ -7,8 +10,12 @@ export default function BookDetails() {
     const book = data.find(book => book.bookId === id )
     const {bookName, author, review, rating, totalPages, yearOfPublishing, tags, image, category, publisher} = book;
 
-    const handleRead = () => {
-        
+    const handleToRead = (id) => {
+        addToStoreReadList(id);
+    }
+
+    const handleToAddWishlist = (id) => {
+        addToWishList(id);
     }
     return (
         <div className="hero min-h-screen">
@@ -31,9 +38,9 @@ export default function BookDetails() {
 
             <div className='border-b border-gray-100'>
                 <p className='font-bold mt-2'>Review : <span className='font-normal'>{review}</span></p> 
-                <p className='font-bold py-3'>Tag 
+                <div className='font-bold py-3'>Tag 
                 {tags.map((tag, index)=><div key={index} className="badge badge-outline ms-3">{tag}</div>)}
-                </p>
+                </div>
             </div>
 
             <div className='py-3 md:py-5'>
@@ -57,8 +64,8 @@ export default function BookDetails() {
                     <p className='font-bold'>{rating}</p>
                 </div>
             </div>
-            <button className="btn btn-outline">Read</button>
-            <button className="ms-2 btn btn-info text-white">Wishlist</button>
+            <button className="btn btn-outline" onClick={()=>handleToRead(bookId)}>Read</button>
+            <button className="ms-2 btn btn-info text-white" onClick={()=>handleToAddWishlist(bookId)}>Wishlist</button>
         </div>
         </div>
     </div>

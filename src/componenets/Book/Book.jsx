@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom'
 
 export default function Book({ data }) {
     const {bookId} = data;
+
     return (
         <Link to={`books/${bookId}`}>
             <div className="card bg-base-100 shadow-sm">

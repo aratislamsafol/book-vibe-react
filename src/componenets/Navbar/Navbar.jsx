@@ -2,8 +2,8 @@ import {NavLink, Link} from 'react-router-dom';
 export default function Navbar() {
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="listeditems">Listed Books</NavLink></li>
         <li><a>Pages to Read</a></li>
-        <li><a>Listed Books</a></li>
     </>
   return (
     <div>
